@@ -1,0 +1,4 @@
+node_modules
+plan
+package-lock.json
+blog.db
