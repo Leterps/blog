@@ -21,12 +21,19 @@ const Post = sequelize.define('Post', {
 sequelize.sync();
 
 app.get('/', async (req, res) => {
-  const posts = await Post.findAll({
+  let page = Number(req.query.page) || 0;
+  const limit = 3;
+  const {count, rows} = await Post.findAndCountAll({
+    offset: page*limit,
+    limit: limit,
     order: [
-    // Will escape title and validate DESC against a list of valid direction parameters
-    ['createdAt', 'DESC'],
-  ]});
-  res.render('main', {posts:posts})
+      // Will escape title and validate DESC against a list of valid direction parameters
+      ['createdAt', 'DESC']
+    ]
+  });
+  const posts = rows;
+  let maxPage = Math.ceil(count/limit);
+  res.render('main', {posts:posts, page:page, maxPage:maxPage})
 })
 
 app.get('/search', async (req,res) => {
