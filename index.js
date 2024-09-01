@@ -5,6 +5,7 @@ const { Sequelize } = require('sequelize');
 app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 const { Op } = require('sequelize');
+const Utils = require ('./src/utils.js')
 
 const sequelize = new Sequelize({
   dialect: 'sqlite',
@@ -33,11 +34,21 @@ app.get('/', async (req, res) => {
   });
   const posts = rows;
   let maxPage = Math.ceil(count/limit);
-  res.render('main', {posts:posts, page:page, maxPage:maxPage})
+  res.render('main', {
+    posts:posts,
+    page:page,
+    maxPage:maxPage,
+    utils: Utils,
+    url: req.url
+  })
 })
 
 app.get('/search', async (req,res) => {
-  const posts = await Post.findAll({
+  let page = Number(req.query.page) || 0;
+  const limit = 3;
+  const {count, rows} = await Post.findAndCountAll({
+    offset: page*limit,
+    limit: limit,
     order: [
       ['createdAt', 'DESC'],
     ],
@@ -48,7 +59,15 @@ app.get('/search', async (req,res) => {
       ]
     },
   });
-  res.render('main', {posts:posts})
+  const posts = rows;
+  let maxPage = Math.ceil(count/limit);
+  res.render('main', {
+    posts:posts,
+    page:page,
+    maxPage:maxPage,
+    utils: Utils,
+    url:req.url
+  })
 })
 
 app.get('/create', (req, res) => {
