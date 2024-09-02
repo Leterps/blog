@@ -21,7 +21,8 @@ module.exports = {
       page:page,
       maxPage:maxPage,
       utils: Utils,
-      url: req.url
+      url: req.url,
+      flash: Utils.readFlash(req.session)
     })
   },
 
@@ -43,12 +44,14 @@ module.exports = {
     });
     const posts = rows;
     let maxPage = Math.ceil(count/limit);
+    req.session.flash = `search for ${req.query.text}`;
     res.render('main', {
       posts:posts,
       page:page,
       maxPage:maxPage,
       utils: Utils,
-      url:req.url
+      url:req.url,
+      flash: Utils.readFlash(req.session)
     })
   },
 
@@ -56,31 +59,34 @@ module.exports = {
 
     res.render('edit', {
       post: {},
-      notFilled: req.query.notFilled
+      flash: Utils.readFlash(req.session)
     })
   },
 
   postId: async (req, res) => {
     const post = await Post.findByPk(Number(req.params.id));
-    res.render('post', {post:post})
+    res.render('post', {
+      post:post,
+      flash: Utils.readFlash(req.session)
+    })
   },
 
   edit: async (req, res) => {
     const post = await Post.findByPk(Number(req.params.id));
     res.render('edit', {
       post:post,
-      notFilled: req.query.notFilled
+      flash: Utils.readFlash(req.session)
     })
   },
 
   update: async (req, res) => {
     const postId = (req.body.id == "") ? null : Number(req.body.id);
     if (req.body.title == "" || req.body.text == ""){
-      console.log ('no text found');
+      req.session.flash = "please fill all fields";
       if (postId == null){
-        return res.redirect('/create?notFilled=true');
+        return res.redirect('/create');
       } else {
-        return res.redirect(`/post/${postId}/edit?notFilled=true`);
+        return res.redirect(`/post/${postId}/edit`);
       }
     }
     const [post, created] = await Post.findOrCreate({
@@ -88,15 +94,24 @@ module.exports = {
         id: postId
       }
     });
+
     post.title = req.body.title;
     post.text = req.body.text;
     post.save();
+
+    if (created) {
+      req.session.flash = "post added succesfully";
+    } else {
+      req.session.flash = "post edited succesfully";
+    }
+
     res.redirect(`/post/${post.id}`)
   },
 
   delete: async (req, res) => {
     const post = await Post.findByPk(Number(req.params.id));
     await post.destroy();
+    req.session.flash = "post deleted";
     res.redirect('/')
   }
 }

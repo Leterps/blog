@@ -4,6 +4,13 @@ const port = 3000
 app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 const PostController = require('./src/controllers/PostController.js');
+const session = require('express-session')
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {}
+}))
 
 
 // Automatically create all tables

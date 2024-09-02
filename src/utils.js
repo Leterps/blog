@@ -1,4 +1,12 @@
 module.exports = {
+    readFlash: function (session) {
+      let flashMessage = "";
+      if (session.flash){
+        flashMessage = session.flash;
+        session.flash = "";
+      }
+      return flashMessage;
+    },
     //recieves url and set of new params,
     //updates params and returns new url
     // withNewParams('/list?page=1', {page: 2}) ->'/list?page=2'
