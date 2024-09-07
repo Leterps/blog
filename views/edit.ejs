@@ -6,11 +6,11 @@
           <input type="hidden" name="id" value="<%=post.id%>">
         <div class="mb-3">
           <label for="exampleFormControlInput1" class="form-label">Post title</label>
-          <input type="text" required class="form-control" id="exampleFormControlInput1" placeholder="Title" name = "title" value = "<%=post.title%>">
+          <input type="text" required pattern="\S(.*\S)?" class="form-control" id="exampleFormControlInput1" placeholder="Title" name = "title" value = "<%=post.title%>">
         </div>
         <div class="mb-3">
           <label for="exampleFormControlTextarea1" class="form-label">Text</label>
-          <textarea class="form-control" id="exampleFormControlTextarea1" rows="7" name = "text" required><%=post.text%></textarea>
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="7" name = "text" required pattern="\S(.*\S)?"><%=post.text%></textarea>
         </div>
 
         <div class="float-end">

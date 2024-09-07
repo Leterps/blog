@@ -231,9 +231,9 @@
       <div class="col-4 d-flex justify-content-end align-items-center">
         <form method="GET" action="/search" class="row row-cols-lg-auto g-3 align-items-center">
           <div class="col-12">
-            <label class="visually-hidden" for="inlineFormInputGroupUsername">Search</label>
+            <label class="visually-hidden" for="inlineFormInputGroupUsername" >Search</label>
             <div class="input-group">
-              <input type="text" required class="form-control" id="inlineFormInputGroupUsername" placeholder="search" name = "text">
+              <input type="text" required pattern="\S(.*\S)?" class="form-control" id="inlineFormInputGroupUsername" placeholder="search" name = "text">
             </div>
           </div>
 

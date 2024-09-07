@@ -27,6 +27,10 @@ module.exports = {
   },
 
   search: async (req,res) => {
+    if (/^\s*$/.test (req.query.text)) {
+      req.session.flash = `please fill in search field`;
+      return res.redirect ('/');
+    } ;
     let page = Number(req.query.page) || 0;
     const limit = 3;
     const {count, rows} = await Post.findAndCountAll({
@@ -81,7 +85,7 @@ module.exports = {
 
   update: async (req, res) => {
     const postId = (req.body.id == "") ? null : Number(req.body.id);
-    if (req.body.title == "" || req.body.text == ""){
+    if (/^\s*$/.test (req.body.title) || /^\s*$/.test (req.body.text)){
       req.session.flash = "please fill all fields";
       if (postId == null){
         return res.redirect('/create');
