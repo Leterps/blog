@@ -48,14 +48,15 @@ module.exports = {
     });
     const posts = rows;
     let maxPage = Math.ceil(count/limit);
-    req.session.flash = `search for ${req.query.text}`;
+    req.session.flash = `search for "${req.query.text}" `;
     res.render('main', {
       posts:posts,
       page:page,
       maxPage:maxPage,
       utils: Utils,
       url:req.url,
-      flash: Utils.readFlash(req.session)
+      flash: Utils.readFlash(req.session),
+      text: req.query.text
     })
   },
 

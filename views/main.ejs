@@ -11,28 +11,33 @@
   <div class="row g-5">
     <div class="col-md-8">
 
-  <% posts.forEach(function(post){ %>
-      <article class="blog-post">
-        <h2 class="display-5 link-body-emphasis mb-1">
-          <a href = "/post/<%=post.id%>"><%= post.title %></a>
-        </h2>
-        <p class="blog-post-meta"><%=post.createdAt.toLocaleString()%> <a href="/post/<%=post.id%>/edit">Edit</a> <a href="/post/<%=post.id%>/delete">Delete</a></p>
-        <p><%=post.text %></p>
+      <%  if (posts.length > 0) { %>
+        <% posts.forEach(function(post){ %>
+            <article class="blog-post">
+              <h2 class="display-5 link-body-emphasis mb-1">
+                <a href = "/post/<%=post.id%>"><%= post.title %></a>
+              </h2>
+              <p class="blog-post-meta"><%=post.createdAt.toLocaleString()%> <a href="/post/<%=post.id%>/edit">Edit</a> <a href="/post/<%=post.id%>/delete">Delete</a></p>
+              <p><%=post.text %></p>
+            </article>
+        <%});%>
 
-      </article>
-<%});%>
-      <nav class="blog-pagination" aria-label="Pagination">
-        <% if (page>=maxPage-1){ %>
-          <a class="btn btn-outline-secondary rounded-pill disabled"  >Older</a>
-        <% } else { %>
-          <a class="btn btn-outline-primary rounded-pill"  href="<%=utils.withNewParams(url, {page:page+1})%>">Older</a>
-        <% } %>
-        <% if (page<=0){ %>
-          <a class="btn btn-outline-secondary rounded-pill disabled" >Newer</a>
-        <% } else { %>
-          <a class="btn btn-outline-primary rounded-pill" href="<%=utils.withNewParams(url, {page:page-1})%>" aria-disabled="true">Newer</a>
-        <% } %>
-      </nav>
+        <nav class="blog-pagination" aria-label="Pagination">
+          <% if (page>=maxPage-1){ %>
+            <a class="btn btn-outline-secondary rounded-pill disabled"  >Older</a>
+          <% } else { %>
+            <a class="btn btn-outline-primary rounded-pill"  href="<%=utils.withNewParams(url, {page:page+1})%>">Older</a>
+          <% } %>
+          <% if (page<=0){ %>
+            <a class="btn btn-outline-secondary rounded-pill disabled" >Newer</a>
+          <% } else { %>
+            <a class="btn btn-outline-primary rounded-pill" href="<%=utils.withNewParams(url, {page:page-1})%>" aria-disabled="true">Newer</a>
+          <% } %>
+        </nav>
+
+      <% } else { %>
+        <p> No posts found </p>
+      <% }; %>
 
     </div>
 

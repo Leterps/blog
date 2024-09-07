@@ -233,12 +233,12 @@
           <div class="col-12">
             <label class="visually-hidden" for="inlineFormInputGroupUsername" >Search</label>
             <div class="input-group">
-              <input type="text" required pattern="\S(.*\S)?" class="form-control" id="inlineFormInputGroupUsername" placeholder="search" name = "text">
+              <input type="text" required pattern="\S(.*\S)?" class="form-control" id="inlineFormInputGroupUsername" value = "<%= (locals.text) ? text : '' %>" placeholder="search" name = "text">
             </div>
           </div>
 
           <div class="col-12">
-            <button type="submit" class="btn btn-primary">Search</button>
+            <button type="submit" class="btn btn-primary" >Search</button>
           </div>
         </form>
         <a class="btn btn-primary ms-2" href="/create" role="button">Create</a>
@@ -249,7 +249,7 @@
 
   <div class="nav-scroller py-1 mb-3 border-bottom">
     <nav class="nav nav-underline justify-content-between">
-    <% if (flash !== undefined) { %>
+    <% if (locals.flash !== undefined) { %>
     <span class="nav-item nav-link link-body-emphasis text-center"><%=flash%></span>
     <% } %>
     </nav>
