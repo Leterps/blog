@@ -5,8 +5,9 @@
       <form method="POST" action="/update">
           <input type="hidden" name="id" value="<%=post.id%>">
         <div class="mb-3">
-          <label for="exampleFormControlInput1" class="form-label">Post title</label>
-          <input type="text" required pattern="\S(.*\S)?" class="form-control" id="exampleFormControlInput1" placeholder="Title" name = "title" value = "<%=post.title%>">
+          <button type="button" class="btn btn-primary"  onclick="history.back()" > < </button>
+          <label for="exampleFormControlInput1" class="form-label ms-2 ">Post title</label>
+          <input type="text" required pattern="\S(.*\S)?" class="form-control mt-3" id="exampleFormControlInput1" placeholder="Title" name = "title" value = "<%=post.title%>">
         </div>
         <div class="mb-3">
           <label for="exampleFormControlTextarea1" class="form-label">Text</label>
