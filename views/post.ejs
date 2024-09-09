@@ -1,13 +1,10 @@
 <%- include('header'); -%>
 <main class="container">
 
-
-
-
   <div class="row g-5">
     <div class="col-md-8 offset-md-2">
       <article class="blog-post">
-
+        <%- include ('modal', { post: post }); -%>
         <h2 class="display-5 link-body-emphasis mb-1">
           <button type="button" class="btn btn-primary"  onclick="history.back()" > < </button>
           <%=post.title%>
@@ -15,7 +12,9 @@
         <p class="blog-post-meta">
           <%=post.createdAt.toLocaleString()%>
           <a href="/post/<%=post.id%>/edit">Edit</a>
-          <a href="/post/<%=post.id%>/delete">Delete</a>
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteModal<%=post.id%>">
+            Delete
+          </button>
         </p>
 
         <p><%=post.text%></p>

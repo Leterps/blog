@@ -2,6 +2,9 @@
 <main class="container">
   <div class="row g-5">
     <div class="col-md-8 offset-md-2">
+      <% if (post.id) { %>
+        <%- include ('modal', { post: post }); -%>
+      <% } %>
       <form method="POST" action="/update">
           <input type="hidden" name="id" value="<%=post.id%>">
         <div class="mb-3">
@@ -17,7 +20,9 @@
         <div class="float-end">
           <button type="submit" class="btn btn-primary">Submit</button>
           <% if (post.id) { %>
-            <a href="/post/<%=post.id%>/delete" class="btn btn-danger" > Delete </a>
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal<%=post.id%>">
+              Delete
+            </button>
           <% } %>
         </div>
       </form>
