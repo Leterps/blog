@@ -16,6 +16,9 @@ module.exports = {
     })
     const posts = rows;
     let maxPage = Math.ceil(count/limit);
+
+
+
     res.render('main', {
       posts:posts,
       page:page,
@@ -28,7 +31,7 @@ module.exports = {
 
   search: async (req,res) => {
     if (/^\s*$/.test (req.query.text)) {
-      req.session.flash = `please fill in search field`;
+      req.session.flash = `Please, fill in search field.`;
       return res.redirect ('/');
     } ;
     let page = Number(req.query.page) || 0;
@@ -87,7 +90,7 @@ module.exports = {
   update: async (req, res) => {
     const postId = (req.body.id == "") ? null : Number(req.body.id);
     if (/^\s*$/.test (req.body.title) || /^\s*$/.test (req.body.text)){
-      req.session.flash = "please fill all fields";
+      req.session.flash = "Please, fill all fields.";
       if (postId == null){
         return res.redirect('/create');
       } else {
@@ -105,9 +108,9 @@ module.exports = {
     post.save();
 
     if (created) {
-      req.session.flash = "post added succesfully";
+      req.session.flash = "Post added succesfully.";
     } else {
-      req.session.flash = "post edited succesfully";
+      req.session.flash = "Post edited succesfully.";
     }
 
     res.redirect(`/post/${post.id}`)
@@ -116,7 +119,7 @@ module.exports = {
   delete: async (req, res) => {
     const post = await Post.findByPk(Number(req.params.id));
     await post.destroy();
-    req.session.flash = "post deleted";
+    req.session.flash = "Post deleted succesfully.";
     res.redirect('/')
   }
 }

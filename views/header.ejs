@@ -249,9 +249,20 @@
 
   <div class="nav-scroller py-1 mb-3 border-bottom">
     <nav class="nav nav-underline justify-content-between">
-    <% if (locals.flash !== undefined) { %>
-    <span class="nav-item nav-link link-body-emphasis text-center"><%=flash%></span>
-    <% } %>
     </nav>
   </div>
+
+  <% if (locals.flash !== undefined && locals.flash !="") { %>
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+      <div class="toast" role="alert" aria-live="assertive" id="flashToast" aria-atomic="true">
+        <div class="toast-header">          
+          <strong class="me-auto">Pritchard's Blog</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+          <%=flash%>
+        </div>
+      </div>
+    </div>
+  <% } %>
 </div>
