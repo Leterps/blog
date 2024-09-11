@@ -105,6 +105,11 @@
       .bd-mode-toggle .dropdown-menu .active .bi {
         display: block !important;
       }
+
+      .create-post textarea::placeholder {
+        font-style: italic;
+      }
+
     </style>
 
 
@@ -220,7 +225,7 @@
 </svg>
 
 <div class="container">
-  <header class="border-bottom lh-1 py-3">
+  <header>
     <div class="row flex-nowrap justify-content-between align-items-center">
       <div class="col-4 pt-1">
 
@@ -241,21 +246,14 @@
             <button type="submit" class="btn btn-primary" >Search</button>
           </div>
         </form>
-        <a class="btn btn-primary ms-2" href="/create" role="button">Create</a>
-
       </div>
     </div>
   </header>
 
-  <div class="nav-scroller py-1 mb-3 border-bottom">
-    <nav class="nav nav-underline justify-content-between">
-    </nav>
-  </div>
-
   <% if (locals.flash !== undefined && locals.flash !="") { %>
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
       <div class="toast" role="alert" aria-live="assertive" id="flashToast" aria-atomic="true">
-        <div class="toast-header">          
+        <div class="toast-header">
           <strong class="me-auto">Pritchard's Blog</strong>
           <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>

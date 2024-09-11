@@ -12,9 +12,9 @@
         <p class="blog-post-meta">
           <%=post.createdAt.toLocaleString()%>
           <a href="/post/<%=post.id%>/edit">Edit</a>
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteModal<%=post.id%>">
+          <a href="" data-bs-toggle="modal" data-bs-target="#deleteModal<%=post.id%>">
             Delete
-          </button>
+          </a>
         </p>
 
         <p><%=post.text%></p>
