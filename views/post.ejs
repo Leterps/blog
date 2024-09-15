@@ -5,17 +5,31 @@
     <div class="col-md-8 offset-md-2">
       <article class="blog-post">
         <%- include ('modal', { post: post }); -%>
-        <h2 class="display-5 link-body-emphasis mb-1">
-          <button type="button" class="btn btn-primary"  onclick="history.back()" > < </button>
-          <%=post.title%>
-        </h2>
-        <p class="blog-post-meta">
-          <%=post.createdAt.toLocaleString()%>
-          <a href="/post/<%=post.id%>/edit">Edit</a>
-          <a href="" data-bs-toggle="modal" data-bs-target="#deleteModal<%=post.id%>">
-            Delete
-          </a>
-        </p>
+        <div class= "row">
+          <div class="col-md-8">
+            <h2 class="display-5 link-body-emphasis mb-1">
+              <button type="button" class="btn btn-primary"  onclick="history.back()" > < </button>
+              <%=post.title%>
+            </h2>
+          </div>
+          <div class="col-md-4 text-end pt-4">
+              <a href="/post/<%=post.id%>/edit">Edit</a>
+              <a href="" data-bs-toggle="modal" data-bs-target="#deleteModal<%=post.id%>">Delete</a>
+          </div>
+        </div>
+        <div class="blog-post-meta">
+          <div class="row border-top pt-2 border-bottom pb-2">
+            <div class="col-md-4 offset-4 text-center">
+              <% if (previousPost !=null) { %>
+                <a class="btn btn-primary" href="/post/<%=previousPost.id%>" role="button"><</a>
+              <% } %>
+              <%=post.createdAt.toLocaleString()%>
+              <% if (nextPost !=null) { %>
+                <a class="btn btn-primary" href="/post/<%=nextPost.id%>" role="button">></a>
+              <% } %>
+            </div>
+          </div>
+        </div>
 
         <p><%=post.text%></p>
 

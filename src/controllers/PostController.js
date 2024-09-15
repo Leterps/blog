@@ -73,8 +73,26 @@ module.exports = {
 
   postId: async (req, res) => {
     const post = await Post.findByPk(Number(req.params.id));
+    let previousPost = await Post.findOne({
+      where: {
+        createdAt: {
+          [Op.lt]: post.createdAt
+        }
+      },
+      order: [['createdAt', 'DESC']]
+    })
+    let nextPost = await Post.findOne({
+      where: {
+        createdAt: {
+          [Op.gt]: post.createdAt
+        }
+      },
+      order: [['createdAt', 'ASC']]
+    })
     res.render('post', {
       post:post,
+      previousPost:previousPost,
+      nextPost:nextPost,
       flash: Utils.readFlash(req.session)
     })
   },
